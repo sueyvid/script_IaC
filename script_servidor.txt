@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Excluindo
+userdel -rf carlos
+userdel -rf maria
+userdel -rf joao
+userdel -rf debora
+userdel -rf sebastiana
+userdel -rf roberto
+userdel -rf josefina
+userdel -rf amanda
+userdel -rf rogerio
+echo "Usuários excluidos"
+groupdel GRP_ADM
+groupdel GRP_VEN
+groupdel GRP_SEC
+echo "Grupos excluidos"
+rm -rf publico adm ven sec
+echo "Diretórios excluidos"
+echo "Todos os arquivos foram excluidos"
+
+# Diretórios
+echo "Criando diretórios"
+mkdir publico adm ven sec
+# Testando
+find -name publico
+find -name adm
+find -name ven
+find -name sec
+echo "Diretório criados"
+
+# Grupos
+echo "Criando grupos"
+groupadd GRP_ADM
+groupadd GRP_VEN
+groupadd GRP_SEC
+# Testando
+grep "GRP_ADM" /etc/group
+grep "GRP_VEN" /etc/group
+grep "GRP_SEC" /etc/group
+echo "Grupos criados"
+
+# Usuários
+echo "Criando usuários"
+useradd carlos -s /bin/bash -m
+useradd maria -s /bin/bash -m
+useradd joao -s /bin/bash -m
+useradd debora -s /bin/bash -m
+useradd sebastiana -s /bin/bash -m
+useradd roberto -s /bin/bash -m
+useradd josefina -s /bin/bash -m
+useradd amanda -s /bin/bash -m
+useradd rogerio -s /bin/bash -m
+# Testando
+grep "carlos" /etc/passwd
+grep "maria" /etc/passwd
+grep "joao" /etc/passwd
+grep "debora" /etc/passwd
+grep "sebastiana" /etc/passwd
+grep "roberto" /etc/passwd
+grep "josefina" /etc/passwd
+grep "amanda" /etc/passwd
+grep "rogerio" /etc/passwd
+echo "Usuários criados"
+
+# Adicionando usuários a grupos
+echo "Adicionando usuários a grupos"
+usermod -G GRP_ADM carlos
+usermod -G GRP_ADM maria
+usermod -G GRP_ADM joao
+usermod -G GRP_VEN debora
+usermod -G GRP_VEN sebastiana
+usermod -G GRP_VEN roberto
+usermod -G GRP_SEC josefina
+usermod -G GRP_SEC amanda
+usermod -G GRP_SEC rogerio
+echo "Usuários adicionados"
+
+# Mudando grupos dos diretórios
+echo "Mudando grupos dos diretórios"
+chown root:GRP_ADM /adm/
+chown root:GRP_VEN /ven/
+chown root:GRP_SEC /sec/
+echo "Grupos modificados"
+
+# Permissões
+echo "Gerenciando permissões"
+chmod 777 /publico/
+chmod 770 /adm/
+chmod 770 /ven/
+chmod 770 /sec/
+echo "Permissões criadas"
+
